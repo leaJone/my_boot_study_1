@@ -1,13 +1,7 @@
 package com.study.hc.thread.chapter1.thread;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /** 线程池的使用 */
 public class Demo9 {
@@ -278,13 +272,13 @@ public class Demo9 {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		new Demo9().threadPoolExecutorTest1();
+		new Demo9().threadPoolExecutorTest1();
 //		new Demo9().threadPoolExecutorTest2();
 //		new Demo9().threadPoolExecutorTest3();
 //		new Demo9().threadPoolExecutorTest4();
 //		new Demo9().threadPoolExecutorTest5();
 //		new Demo9().threadPoolExecutorTest6();
 //		new Demo9().threadPoolExecutorTest7();
-		new Demo9().threadPoolExecutorTest8();
+//		new Demo9().threadPoolExecutorTest8();
 	}
 }

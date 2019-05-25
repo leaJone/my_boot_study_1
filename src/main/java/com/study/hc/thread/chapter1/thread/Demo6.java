@@ -28,15 +28,19 @@ public class Demo6 {
 	/** 死锁的suspend/resume。 suspend并不会像wait一样释放锁，故此容易写出死锁代码 */
 	public void suspendResumeDeadLockTest() throws Exception {
 		// 启动线程
-		Thread consumerThread = new Thread(() -> {
-			if (baozidian == null) { // 如果没包子，则进入等待
-				System.out.println("1、进入等待");
-				// 当前线程拿到锁，然后挂起
-				synchronized (this) {
-					Thread.currentThread().suspend();
+		Thread consumerThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (baozidian == null) { // 如果没包子，则进入等待
+					System.out.println("1、进入等待");
+					// 当前线程拿到锁，然后挂起
+					synchronized (this) {
+						Thread.currentThread().suspend();
+					}
+					System.out.println("===消费者挂起等待resume");
 				}
+				System.out.println("2、买到包子，回家");
 			}
-			System.out.println("2、买到包子，回家");
 		});
 		consumerThread.start();
 		// 3秒之后，生产一个包子
@@ -174,7 +178,7 @@ public class Demo6 {
 	public static void main(String[] args) throws Exception {
 		// 对调用顺序有要求，也要开发自己注意锁的释放。这个被弃用的API， 容易死锁，也容易导致永久挂起。
 //		 new Demo6().suspendResumeTest();
-//		 new Demo6().suspendResumeDeadLockTest();
+		 new Demo6().suspendResumeDeadLockTest();
 //		 new Demo6().suspendResumeDeadLockTest2();
 
 		// wait/notify要求再同步关键字里面使用，免去了死锁的困扰，但是一定要先调用wait，再调用notify，否则永久等待了
@@ -183,7 +187,7 @@ public class Demo6 {
 
 		// park/unpark没有顺序要求，但是park并不会释放锁，所有再同步代码中使用要注意
 //		 new Demo6().parkUnparkTest();
-		 new Demo6().parkUnparkDeadLockTest();
+//		 new Demo6().parkUnparkDeadLockTest();
 
 	}
 }

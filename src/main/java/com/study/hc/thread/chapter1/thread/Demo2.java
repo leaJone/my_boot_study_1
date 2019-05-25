@@ -10,13 +10,10 @@ public class Demo2 {
 	public static void main(String[] args) throws Exception {
 		// 第一种状态切换 - 新建 -> 运行 -> 终止
 		System.out.println("#######第一种状态切换  - 新建 -> 运行 -> 终止################################");
-		Thread thread1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("thread1当前状态：" + Thread.currentThread().getState().toString());
-				System.out.println("thread1 执行了");
-			}
-		});
+		Thread thread1 = new Thread(() -> {
+            System.out.println("thread1当前状态：" + Thread.currentThread().getState().toString());
+            System.out.println("thread1 执行了");
+        });
 		System.out.println("没调用start方法，thread1当前状态：" + thread1.getState().toString());
 		thread1.start();
 		Thread.sleep(2000L); // 等待thread1执行结束，再看状态
